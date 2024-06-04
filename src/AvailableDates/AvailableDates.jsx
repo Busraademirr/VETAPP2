@@ -1,0 +1,51 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
+
+function AvailableDates() {
+    const BASE_URL = "http://localhost:8080"
+    const [availableDates, setAvailableDates]=useState([]);
+
+    useEffect(()=>{
+        const getData = async()=>{
+            const response = await axios.get(`${BASE_URL}/api/v1/available-dates`);
+            setAvailableDates(response.data.content);
+        };
+        getData ();  
+    }, [availableDates]);
+
+
+    const navigate = useNavigate(); 
+
+  // Veriyi doktor adına göre grupla
+  const groupedData = availableDates.reduce((acc, current) => {
+    const doctorName = current.doctor.name;
+    if (!acc[doctorName]) {
+      acc[doctorName] = [];
+    }
+    acc[doctorName].push(current.workDay);
+    return acc;
+  }, {});
+
+  // Doktorları alfabetik olarak sırala
+  const sortedDoctorNames = Object.keys(groupedData).sort();
+
+  return (
+    <div>
+        <h2>Doktor Çalışma Takvimi</h2>
+        {sortedDoctorNames.map((doctorName) => (
+        <div key={doctorName}>
+          <h3>{doctorName}</h3>
+          <ul>
+            {groupedData[doctorName].map((workDate, index) => (
+              <li key={index}>{workDate}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+        <button onClick={()=> navigate("/doctor-available-dates")}>Çalışma Günü Ekle/Düzenle...</button>
+    </div>
+  )
+}
+
+export default AvailableDates
