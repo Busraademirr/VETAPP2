@@ -76,15 +76,15 @@ function Vaccinations() {
     const deleteVaccination = async(e)=>{
         const {id}=e.target;
         console.log("id: ", id);
-        await axios.delete(`${BASE_URL}/api/v1/vaccinations
-        /${id}`);
+        await axios.delete(`${BASE_URL}/api/v1/vaccinations/${id}`);
         setUpdate(true);
     };
     const handleEditVaccination = (e) =>{
-        const id = e.target.id;
+        const id = +e.target.id;
+        console.log(id);
         setEditVaccinationId(id);
         vaccinations?.map((item)=>{
-            if(item.id == id){
+            if(item.id === +id){
                 setEditVaccination({
                     name: item.name,
                     code: item.code,
@@ -115,6 +115,7 @@ function Vaccinations() {
     
     const editVaccinationDone =async(e)=>{
         const {id}=e.target;
+        console.log("put isteği")
         await axios.put(`${BASE_URL}/api/v1/vaccinations/${id}`, editVaccination);
         setEditVaccination({
             "name": "",
@@ -122,6 +123,7 @@ function Vaccinations() {
             "protectionStartDate": "",
             "protectionFinishDate": "",
             "animalWithoutCustomer": {id: "", name:""}});
+        console.log("put tamamlandı")
         setEditVaccinationId(null);
         setUpdate(true);
     };
@@ -171,7 +173,7 @@ function Vaccinations() {
             <h3>Aşı Takip</h3>
             {vaccinations?.map((item, index)=>(
                 <div key={index}>
-                {editVaccinationId == item.id ? (
+                {editVaccinationId === item.id ? (
                 <div>
                 <input type="text" 
                 placeholder="Aşı Adı"
@@ -212,13 +214,13 @@ function Vaccinations() {
             </div>
             ) : (
             <>
-                <p>Aşı adı: {item.name}</p>
-                <p>Aşı kodu: {item.code}</p>
-                <p>Aşı koruma başlangıcı: {item.protectionStartDate}</p>
-                <p>Aşı bitiş: {item.protectionFinishDate}</p>
-                {/* <p>Hayvan Adı: {item.animal.name}</p> */}
+                <span>Aşı adı: {item.name}</span>
+                <span>Aşı kodu: {item.code}</span>
+                <span>Aşı koruma başlangıcı: {item.protectionStartDate}</span>
+                <span>Aşı bitiş: {item.protectionFinishDate}</span>
+                <span>Hayvan Adı: {item.animal.name}</span><span>
                 <MdDeleteForever onClick={deleteVaccination} id={item.id} />
-                <BiSolidEditAlt onClick={handleEditVaccination} id={item.id}/>
+                <BiSolidEditAlt onClick={handleEditVaccination} id={item.id}/></span>
             </>          
             )}
             </div>

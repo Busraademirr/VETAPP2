@@ -169,7 +169,7 @@ function Animals() {
             value={newAnimal.gender}
             onChange={newAnimalInputChange}
             />
-            <input type="text" 
+            <input type="date" 
             placeholder="YYYY-AA-GG"
             name="dateOfBirth"
             value={newAnimal.dateOfBirth}

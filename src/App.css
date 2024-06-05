@@ -1,0 +1,114 @@
+body{
+    padding-top: 90px;
+    width: 100vw;
+    overflow-x: hidden;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+nav{
+    background-color: var(--green);
+    position: fixed;
+    top:0;
+    height: 80px;
+    max-width: 100vw;
+    width:100vw;
+    max-width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    color:white;
+    
+}
+nav li{
+    list-style-type: none;
+    padding-right: 40px;
+}
+nav ul{
+    padding-right: 40px;
+}
+nav li a{
+    text-decoration: none;
+    color:var(--darkgrey)
+}
+nav ul{
+
+}
+.logo{
+    width:60px; 
+    height:auto;
+    padding-left: 40px;
+}
+.logo img{
+
+    max-width: 100%;
+    height: auto;
+}
+.container{
+    display: flex;
+    width: 100vw;
+}
+.addNewBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 30%;
+    height: 80vh;
+    border-right: 2px solid var(--green);
+
+}
+.listBox{
+    width: 70%;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+}
+.addNewBox input{
+    height: 45px;
+    width: 70%;
+    margin: 1px;
+    border:none;
+    border-bottom: 1px solid var(--green);
+}
+.addNewBox input:focus{
+    outline: none;
+    border-bottom: 2px solid var(--green);
+    box-shadow: 4px 4px 8px var(--lightgrey);
+}
+.addNewBox button{
+    outline: none;
+    margin-top: 30px;
+    height: 30px;
+    width: 70%;
+    border: none;
+    background-color: var(--green);
+    border-radius: 5px;
+    color:  var(--darkgrey);
+    font-weight: bold;
+}
+.addNewBox button:active {
+    transform: scale(0.95); /* Örnek: %5 küçültme */
+}
+.addNewBox h3{
+    padding-bottom: 5px;
+    color: var(--darkgrey);
+    border-bottom: 2px solid var(--darkgrey);
+}
+.listBox h3{
+    padding-bottom: 5px;
+    color: var(--darkgrey);
+    border-bottom: 2px solid var(--darkgrey);
+}
+.listBox .listHeader{
+    width: 100%;
+    display: flex;
+}

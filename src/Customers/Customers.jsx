@@ -93,47 +93,62 @@ function Customers() {
     };
 
   return (
-    <div>
+    <div >
+        <div className='container'>
+        {/* yeni müşteri ekleme   */}
+        <div className='addNewBox'>
         <h3>Yeni Müşteri</h3>
-        <div>
-            <input type="text" 
-            placeholder="İsim"
-            name="name"
-            value={newCustomer.name}
-            onChange={newCustomerInputChange}
-            />
-           
-            <input type="text" 
-            placeholder="Numara"
-            name="phone"
-            value={newCustomer.phone}
-            onChange={newCustomerInputChange}
-            />
-            
-            <input type="text" 
-            placeholder="Email"
-            name="email"
-            value={newCustomer.email}
-            onChange={newCustomerInputChange}
-            />
-            
-            <input type="text" 
-            placeholder="Adres"
-            name="address"
-            value={newCustomer.address}
-            onChange={newCustomerInputChange}
-            />
-            
-            <input type="text" 
-            placeholder="Şehir"
-            name="city"
-            value={newCustomer.city}
-            onChange={newCustomerInputChange}
-            />
-            <button onClick={newCustomerAdd}>Ekle</button>
+        
+        <input type="text" 
+        placeholder="İsim"
+        name="name"
+        value={newCustomer.name}
+        onChange={newCustomerInputChange}
+        />
+       
+        <input type="text" 
+        placeholder="Numara"
+        name="phone"
+        value={newCustomer.phone}
+        onChange={newCustomerInputChange}
+        />
+        
+        <input type="text" 
+        placeholder="Email"
+        name="email"
+        value={newCustomer.email}
+        onChange={newCustomerInputChange}
+        />
+        
+        <input type="text" 
+        placeholder="Adres"
+        name="address"
+        value={newCustomer.address}
+        onChange={newCustomerInputChange}
+        />
+        
+        <input type="text" 
+        placeholder="Şehir"
+        name="city"
+        value={newCustomer.city}
+        onChange={newCustomerInputChange}
+        />
+        <button onClick={newCustomerAdd}>EKLE</button>
+        </div>
+        {/* yeni müşteri bitiş */}
 
-            <h3>Müşteri Listesi</h3>
-        <div>
+        {/* müşteri listeleme ve düzenleme */}
+        <div className='listBox'>
+        
+        <h3>Müşteri Listesi</h3>
+        <div className='listHeader'>
+        <input type="text" placeholder='İsim'/>
+        <input type="text" placeholder='Numara'/>
+        <input type="text" placeholder='Mail'/>
+        <input type="text" placeholder='Adres'/>
+        <input type="text" placeholder='Şehir'/>
+        <input type="text" placeholder='Düzenle'/>
+        </div>
             {customers?.map((item, index)=>(
                 <div key={index}>
                     {editCustomerId == item.id ? (
@@ -167,17 +182,18 @@ function Customers() {
                                 <MdFileDownloadDone onClick={editCustomerDone} id={item.id}/>
                             </div>
                         ) : (
-                            <>
+                            <div className='listRow'>
                             
-                                <span> {item.name}</span>
-                                <span> {item.phone}</span>
-                                <span> {item.email}</span>
-                                <span> {item.address}/{item.city}</span>
+                                <p> {item.name}</p>
+                                <p> {item.phone}</p>
+                                <p> {item.email}</p>
+                                <p> {item.address}/{item.city}</p><p>
                                 <MdDeleteForever onClick={deleteCustomer} id={item.id} />
-                                <BiSolidEditAlt onClick={handleEditCustomer} id={item.id} />
-                            </>)}
+                                <BiSolidEditAlt onClick={handleEditCustomer} id={item.id} /></p>
+                            </div>)}
                 </div> ))}
         </div>
+        {/* müşteri listeleme ve düzenleme bitiş */}
         </div>
     </div>
   )

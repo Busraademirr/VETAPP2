@@ -1,4 +1,11 @@
 :root {
   margin:0;
   padding:0;
+  box-sizing: border-box;
+
+    --green: #7ac43a;
+    --darkgrey: #606060;
+    --lightgrey: #bfbfbf; 
+    --white: #ffff;
+    --black: #00000000;
 }

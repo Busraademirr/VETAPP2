@@ -12,12 +12,12 @@ function DoctorAvailableDays() {
     const [update, setUpdate]=useState(false);
     const [availableDates, setAvailableDates]= useState([]);
     const [newAvailableDate, setNewAvailableDate] = useState({
-        "workDate": "",
+        "workDay": "",
         "doctorId": { id: "", name: ""},
     })
     const [editAvailableDateId, setEditAvailableDateId]=useState(null);
     const [editAvailableDate, setEditAvailableDate] = useState({
-        "workDate": "",
+        "workDay": "",
         "doctorId": { id: "", name: ""},
     });
     const [doctors, setDoctors]=useState([]);
@@ -48,7 +48,7 @@ function DoctorAvailableDays() {
 
     useEffect(()=>{
         const handleSetNewAvailableDate = ()=>{
-            setNewAvailableDate({workDate: newSelectedDate, doctorId : selectedDoctorId});
+            setNewAvailableDate({workDay: newSelectedDate, doctorId : selectedDoctorId});
         }
         handleSetNewAvailableDate();
     },[newSelectedDate]);
@@ -57,7 +57,7 @@ function DoctorAvailableDays() {
         console.log("kaydete basıldı, newAvailableDate:", newAvailableDate);
         await axios.post(`${BASE_URL}/api/v1/available-dates`, newAvailableDate);
         setNewSelectedDate("");
-        setNewAvailableDate({"workDate": "" , "doctorId":""});
+        setNewAvailableDate({"workDay": "" , "doctorId":""});
         setUpdate(true);
         console.log("post edildi toplam liste: ", availableDates);
     }
@@ -75,7 +75,7 @@ function DoctorAvailableDays() {
         console.log("input id atandı")
         availableDates?.map((item)=>{
             if(item.id == id){
-                setEditAvailableDate({workDate: item.workDay , doctorId: item.doctor.id});
+                setEditAvailableDate({workDay: item.workDay , doctorId: item.doctor.id});
                 console.log("edit tılandı, id bulundu, bilgi eşitlendi", editAvailableDate);
             }
         })
@@ -85,7 +85,7 @@ function DoctorAvailableDays() {
         console.log("value değeri" , value);
         setEditAvailableDate(prev=>({
             ...prev,
-            workDate : value
+            workDay : value
         }));
         console.log("data şuna güncellenecekk :", editAvailableDate);
     };
@@ -94,7 +94,7 @@ function DoctorAvailableDays() {
         console.log("güncellenecek data id: ", id)
         console.log("data güncelleme isteği")
         await axios.put(`${BASE_URL}/api/v1/available-dates/${id}`, editAvailableDate);
-        setEditAvailableDate({"workDate": "" ,"doctorId":""});
+        setEditAvailableDate({"workDay": "" ,"doctorId":""});
         setEditAvailableDateId(null);
         setUpdate(true);
         console.log("data güncellendi")
@@ -125,7 +125,7 @@ function DoctorAvailableDays() {
                         {editAvailableDateId == item.id ? (
                             <div>
                             <input type="date" 
-                            value={editAvailableDate.workDate}
+                            value={editAvailableDate.workDay}
                             onChange={editAvailableDateInput}/>
                             <MdDeleteForever onClick={deleteAvailableDate} id={item.id}/>
                             <MdFileDownloadDone onClick={editAvailableDateDone} id={item.id} />

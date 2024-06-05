@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEditAlt } from "react-icons/bi";
@@ -161,7 +161,7 @@ function Doctors() {
                                 <input input type="text" placeholder='Şehir'
                                 name='city'
                                 value={editDoctor.city}
-                                onChange={editDooctorInputChange}/>
+                                onChange={editDoctorInputChange}/>
                                 </div>
                                 <MdDeleteForever onClick={deleteDoctor} id={item.id} />
                                 <MdFileDownloadDone onClick={editDoctorDone} id={item.id}/>
