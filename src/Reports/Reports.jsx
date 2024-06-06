@@ -23,6 +23,7 @@ function Reports() {
         "appointmentId": ""
     });
     const [appointments, setAppointments] = useState([]);
+    const [searchReportId, setSearchReportId] = useState("");
 
     useEffect(() => {
         const getData = async () => {
@@ -120,6 +121,14 @@ function Reports() {
         setEditReportId(null);
         setUpdate(true);
     };
+    const handleSearchReportId = (e) => {
+        const value = e.target.value;
+        setSearchReportId(value);
+        axios.get(`${BASE_URL}/api/v1/reports/${value}`)
+            .then(response => {
+                setReports([response.data]);
+            })
+    };
 
     return (
         <div>
@@ -150,6 +159,15 @@ function Reports() {
             </div>
             <div>
             <h3>Raporlar</h3>
+            <div className='listHeader'>
+            <input type="text" 
+            placeholder='Randevu' 
+            value={searchReportId}
+            onChange={handleSearchReportId}/>
+            <input type="text" placeholder='Başlık'/>
+            <input type="text" placeholder='Ücret'/>
+            <input type="text" placeholder='Düzenle'/>
+            </div>
             {reports?.map(item => (
                     <div key={item.id}>
                     {editReportId === item.id ? (
