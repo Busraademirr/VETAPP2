@@ -93,14 +93,14 @@ function Customers() {
         setUpdate(true);
     };
     //müşteri search datasını çekmek için
-    const handleSearchCustomer = (e) => {
+    const handleSearchCustomer = async(e) => {
         const value = e.target.value;
         setSearchCustomerName(value);
-        axios.get(`${BASE_URL}/api/v1/customers/searchByName?name=${value}`)
+        await axios.get(`${BASE_URL}/api/v1/customers/searchByName?name=${value}`)
             .then(response => {
                 setCustomers(response.data.content);
             })
-        axios.get(`${BASE_URL}/api/v1/customers/${value}`)
+        await axios.get(`${BASE_URL}/api/v1/customers/${value}`)
             .then(response => {
                 setCustomers([response.data]);
             })

@@ -25,6 +25,8 @@ function Vaccinations() {
         "animalWithoutCustomer": {}
     });
     const [animals, setAnimals]=useState([]);
+    const [searchVaccinationId, setSearchVaccinationId] = useState("");
+    const [searchVaccinationAnimal, setSearchVaccinationAnimal] = useState("");
 
     useEffect(()=>{
         const getData = async()=>{
@@ -121,6 +123,36 @@ function Vaccinations() {
         setEditVaccinationId(null);
         setUpdate(true);
     };
+    const handleSearchVaccinationId = async(e) => {
+        const value = e.target.value;
+        setSearchVaccinationId(value);
+        if (value === '') {
+        await axios.get(`${BASE_URL}/api/v1/vaccinations`)
+            .then(response => {
+                setVaccinations(response.data.content);
+            })
+        }
+        else{
+        await axios.get(`${BASE_URL}/api/v1/vaccinations/${value}`)
+         .then(response => {
+            setVaccinations([response.data]);
+        })}
+    };
+    const handleSearchVaccinationAnimal = async(e) => {
+        const value = e.target.value;
+        setSearchVaccinationAnimal(value);
+        if (value === '') {
+        await axios.get(`${BASE_URL}/api/v1/vaccinations`)
+            .then(response => {
+                setVaccinations(response.data.content);
+        })}
+        else{
+        await axios.get(`${BASE_URL}/api/v1/vaccinations/searchByAnimal?id=${value}`)
+            .then(response => {
+                setVaccinations(response.data.content);
+        })}
+       
+    };
 
   return (
     <div>
@@ -165,6 +197,18 @@ function Vaccinations() {
 
         <div>
             <h3>Aşı Takip</h3>
+            <div className='listHeader'>
+            <input type="text" placeholder='Aşı Adı' 
+            value={searchVaccinationId}
+            onChange={handleSearchVaccinationId}/>
+            <input type="text" placeholder='Aşı Kodu'/>
+            <input type="text" placeholder='Başlangıç Tarihi'/>
+            <input type="text" placeholder='Bitiş Tarihi'/>
+            <input type="text" placeholder='Hayvan Adı'
+            value={searchVaccinationAnimal}
+            onChange={handleSearchVaccinationAnimal}/>
+            <input type="text" placeholder='Düzenle'/>
+            </div>
             {vaccinations?.map((item, index)=>(
                 <div key={index}>
                 {editVaccinationId === item.id ? (
