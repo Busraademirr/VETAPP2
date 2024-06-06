@@ -9,6 +9,7 @@ import AvailableDates from './AvailableDates/AvailableDates'
 import DoctorAvailableDays from './AvailableDates/DoctorAvailableDays'
 import Vaccinations from './Vaccinations/Vaccinations'
 import Appointments from './Appointments/Appointments'
+import Reports from './Reports/Reports'
 
 function App() {
 
@@ -23,8 +24,9 @@ function App() {
       <Route path='/animals' element={<Animals/>}/>
       <Route path='/vaccinations' element={<Vaccinations/>}/>
       <Route path='/available-dates' element={<AvailableDates/>}/>
-      <Route path='/appointments' element={<Appointments/>}/>
       <Route path='/doctor-available-dates' element={<DoctorAvailableDays/>}/>
+      <Route path='/appointments' element={<Appointments/>}/>
+      <Route path='/reports' element={<Reports/>}/>
     </Routes>
     </>
   )

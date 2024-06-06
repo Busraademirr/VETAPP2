@@ -33,7 +33,6 @@ function Vaccinations() {
         };
         getData ();
         setUpdate(false); 
-        console.log(vaccinations) ;
     }, [update]);
 
     useEffect(()=>{
@@ -75,13 +74,11 @@ function Vaccinations() {
     }
     const deleteVaccination = async(e)=>{
         const {id}=e.target;
-        console.log("id: ", id);
         await axios.delete(`${BASE_URL}/api/v1/vaccinations/${id}`);
         setUpdate(true);
     };
     const handleEditVaccination = (e) =>{
         const id = +e.target.id;
-        console.log(id);
         setEditVaccinationId(id);
         vaccinations?.map((item)=>{
             if(item.id === +id){
@@ -96,7 +93,6 @@ function Vaccinations() {
     };
     const editVaccinationInputChange =(e)=>{
         const {name, value}=e.target;
-        console.log("yazılan data: ", editVaccination)
         setEditVaccination(prev=>({
             ...prev, [name]: value
         }))
@@ -115,7 +111,6 @@ function Vaccinations() {
     
     const editVaccinationDone =async(e)=>{
         const {id}=e.target;
-        console.log("put isteği")
         await axios.put(`${BASE_URL}/api/v1/vaccinations/${id}`, editVaccination);
         setEditVaccination({
             "name": "",
@@ -123,7 +118,6 @@ function Vaccinations() {
             "protectionStartDate": "",
             "protectionFinishDate": "",
             "animalWithoutCustomer": {id: "", name:""}});
-        console.log("put tamamlandı")
         setEditVaccinationId(null);
         setUpdate(true);
     };

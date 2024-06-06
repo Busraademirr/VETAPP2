@@ -81,10 +81,7 @@ function Appointments() {
                     });
                 }
             });
-    
-            console.log(selectedDoctorWorkDays);
             setSelectedDoctorWorkDay(selectedDoctorWorkDays);
-    
             setNewAppointment(prev => ({
                 ...prev,
                 doctor: selectedDoctor
@@ -97,7 +94,6 @@ function Appointments() {
             ...prev,
             animal: animals?.find(animal => animal.id == value)
         }));
-        console.log("new: ", newAppointment);
     }
     const newSelectedDoctorAvailableDateChange =(e)=>{
         setSelectedDate(e.target.value);

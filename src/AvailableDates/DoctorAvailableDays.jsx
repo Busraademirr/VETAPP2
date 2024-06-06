@@ -53,50 +53,39 @@ function DoctorAvailableDays() {
     },[newSelectedDate]);
 
     const addNewAvailableDate = async()=>{
-        console.log("kaydete basıldı, newAvailableDate:", newAvailableDate);
         await axios.post(`${BASE_URL}/api/v1/available-dates`, newAvailableDate);
         setNewSelectedDate("");
         setNewAvailableDate({"workDay": "" , "doctorId":""});
         setUpdate(true);
-        console.log("post edildi toplam liste: ", availableDates);
     }
 
     const deleteAvailableDate = async(e)=>{
         const {id}=e.target;
-        console.log("item id", id);
         await axios.delete(`${BASE_URL}/api/v1/available-dates/${id}`);
         setUpdate(true);
-        console.log("delete tıklandı");
     };
     const handleEditAvailableDate = (e) =>{
         const id = e.target.id;
         setEditAvailableDateId(id);
-        console.log("input id atandı")
         availableDates?.map((item)=>{
             if(item.id == id){
                 setEditAvailableDate({workDay: item.workDay , doctorId: item.doctor.id});
-                console.log("edit tılandı, id bulundu, bilgi eşitlendi", editAvailableDate);
             }
         })
     };
     const editAvailableDateInput =(e)=>{
         const {value}= e.target;
-        console.log("value değeri" , value);
         setEditAvailableDate(prev=>({
             ...prev,
             workDay : value
         }));
-        console.log("data şuna güncellenecekk :", editAvailableDate);
     };
     const editAvailableDateDone =async(e)=>{
         const {id}=e.target;
-        console.log("güncellenecek data id: ", id)
-        console.log("data güncelleme isteği")
         await axios.put(`${BASE_URL}/api/v1/available-dates/${id}`, editAvailableDate);
         setEditAvailableDate({"workDay": "" ,"doctorId":""});
         setEditAvailableDateId(null);
         setUpdate(true);
-        console.log("data güncellendi")
     };
 
 

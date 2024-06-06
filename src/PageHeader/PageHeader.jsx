@@ -20,6 +20,7 @@ function PageHeader() {
                 <li><Link  to="/vaccinations"> Aşı </Link></li>
                 <li><Link  to="/appointments"> Randevu </Link></li>
                 <li><Link  to="/available-dates"> Poliklinik</Link></li>
+                <li><Link  to="/reports"> Raporlar</Link></li>
               </ul>
             </div>
           </nav>
