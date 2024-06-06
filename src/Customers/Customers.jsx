@@ -100,6 +100,10 @@ function Customers() {
             .then(response => {
                 setCustomers(response.data.content);
             })
+        axios.get(`${BASE_URL}/api/v1/customers/${value}`)
+            .then(response => {
+                setCustomers([response.data]);
+            })
     };
 
   return (
