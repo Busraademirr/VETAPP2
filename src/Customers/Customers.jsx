@@ -25,7 +25,8 @@ function Customers() {
         "address": "",
         "city": ""
     });
-    //datayı çekmek  için
+    const [searchCustomerName, setSearchCustomerName] = useState("");
+    //müşteri datayı çekmek  için
     useEffect(()=>{
         const getData = async()=>{
             const response = await axios.get(`${BASE_URL}/api/v1/customers`);
@@ -91,6 +92,15 @@ function Customers() {
         setEditCustomerId(null);
         setUpdate(true);
     };
+    //müşteri search datasını çekmek için
+    const handleSearchCustomer = (e) => {
+        const value = e.target.value;
+        setSearchCustomerName(value);
+        axios.get(`${BASE_URL}/api/v1/customers/searchByName?name=${value}`)
+            .then(response => {
+                setCustomers(response.data.content);
+            })
+    };
 
   return (
     <div >
@@ -142,7 +152,10 @@ function Customers() {
         
         <h3>Müşteri Listesi</h3>
         <div className='listHeader'>
-        <input type="text" placeholder='İsim'/>
+        <input type="text" 
+        placeholder='İsim' 
+        value={searchCustomerName}
+        onChange={handleSearchCustomer}/>
         <input type="text" placeholder='Numara'/>
         <input type="text" placeholder='Mail'/>
         <input type="text" placeholder='Adres'/>
