@@ -31,7 +31,6 @@ function DoctorAvailableDays() {
         };
         getData ();
         setUpdate(false);  
-        console.log("liste güüncellendi useeff", availableDates)
     }, [update]);
 
     useEffect(()=>{

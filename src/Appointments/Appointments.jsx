@@ -23,6 +23,15 @@ function Appointments() {
     });
     const [animals, setAnimals]=useState([]);
     const [doctors, setDoctors]=useState([]);
+    const [availableDates, setAvailableDates]=useState([]);
+    const [selectedDoctorWorkDay, setSelectedDoctorWorkDay] =useState([]);
+    const [selectedDate, setSelectedDate]=useState("");
+    const [selectedTime, setSelectedTime]=useState("");
+    const [selectedAppointmentDate, setSelectedAppointmentDate]=useState("");
+    const [editSelectedDate, setEditSelectedDate]=useState("");
+    const [editSelectedTime, setEditSelectedTime]=useState("");
+    const[editSelectedAppointmentDate, setEditSelectedAppointmentDate] =useState("");
+
 
     useEffect(()=>{
         const getData = async()=>{
@@ -48,25 +57,40 @@ function Appointments() {
         };
         getData ();  
     }, []);
+    useEffect(()=>{
+        const getData = async()=>{
+            const response = await axios.get(`${BASE_URL}/api/v1/available-dates`);
+            setAvailableDates(response.data.content);
+        };
+        getData ();
+    }, []);
 
-    const newAppointmentInputChange=(e)=>{
-        const {name, value} = e.target;
-        setNewAppointment(prev=>({
-            ...prev,
-            [name] : value
-        }))
-        console.log("new: ", newAppointment);
-    }
-
+    
     const newAppointmentDoctorSelectChange = (e) => {
         const { value } = e.target;
-        setNewAppointment(prev => ({
-            ...prev,
-            doctor: doctors?.find(doc => doc.id == value)
-        }));
-        console.log("new: ", newAppointment);
-    }
-
+        const selectedDoctor = doctors.find(doc => doc.id == value);
+        
+        if (selectedDoctor) {
+            let selectedDoctorWorkDays = [];
+    
+            availableDates?.forEach((item) => {
+                if (item.doctor.id == selectedDoctor.id) {
+                    selectedDoctorWorkDays.push({
+                        workDay: item.workDay,
+                        id: item.id
+                    });
+                }
+            });
+    
+            console.log(selectedDoctorWorkDays);
+            setSelectedDoctorWorkDay(selectedDoctorWorkDays);
+    
+            setNewAppointment(prev => ({
+                ...prev,
+                doctor: selectedDoctor
+            }));
+        }
+    };
     const newAppointmentAnimalSelectChange = (e) => {
         const { value } = e.target;
         setNewAppointment(prev => ({
@@ -75,7 +99,20 @@ function Appointments() {
         }));
         console.log("new: ", newAppointment);
     }
+    const newSelectedDoctorAvailableDateChange =(e)=>{
+        setSelectedDate(e.target.value);
+        setSelectedAppointmentDate(`${selectedDate}T${selectedTime}`);
 
+    }
+    const newSelectedTimeChange = (e) => {
+        const newTime = e.target.value;
+        setSelectedTime(newTime);
+        setNewAppointment(prev => ({
+            ...prev,
+            appointmentDate: `${selectedDate}T${newTime}`
+        }));
+    };
+    
     const addNewAppointment = async () => {
         await axios.post(`${BASE_URL}/api/v1/appointments`, newAppointment)
         setUpdate(true);
@@ -84,6 +121,8 @@ function Appointments() {
             "doctor": { id: "", name: "" },
             "animal": { id: "", name: "" }
         })
+        setSelectedDate("");
+        setSelectedTime("");
     }
 
     const deleteAppointment = async(e)=>{
@@ -91,7 +130,6 @@ function Appointments() {
         await axios.delete(`${BASE_URL}/api/v1/appointments/${id}`);
         setUpdate(true);
     };
-
     const handleEditAppointment = (e) => {
         const id = +e.currentTarget.id;
         setEditAppointmentId(id);
@@ -102,17 +140,12 @@ function Appointments() {
                     doctor: { name: item.doctor.name, id: item.doctor.id },
                     animal: { name: item.animal.name, id: item.animal.id }
                 });
+                
+                setEditSelectedDate(item.appointmentDate.split('T')[0]); 
+                setEditSelectedTime(item.appointmentDate.split('T')[1]); 
             }
         })
     };
-
-    const editAppointmentInputChange=(e)=>{
-        const {name, value} = e.target;
-        setEditAppointment(prev=>({
-            ...prev,
-            [name] : value
-        }))
-    }
 
     const editAppointmentDoctorSelectChange = (e) => {
         const { value } = e.target;
@@ -121,7 +154,11 @@ function Appointments() {
             ...prev,
             doctor: selectedDoctor
         }));
-    }
+
+        // Seçilen doktora göre uygun tarihleri bul
+        const selectedDoctorAvailableDates = availableDates.filter(date => date.doctor.id === selectedDoctor.id);
+        setSelectedDoctorWorkDay(selectedDoctorAvailableDates);
+};
 
     const editAppointmentAnimalSelectChange = (e) => {
         const { value } = e.target;
@@ -131,15 +168,27 @@ function Appointments() {
             animal: selectedAnimal
         }));
     }
+    const editSelectedDoctorAvailableDateChange = (e)=>{
+        setEditSelectedDate(e.target.value);
+        setEditSelectedAppointmentDate(`${selectedDate}T${selectedTime}`);
+        setEditAppointment(prev=>({
+            ...prev, 
+            appointmentDate: selectedAppointmentDate
+        }))
 
-    const editAppointmentDone =async(e)=>{
+    }
+    const editSelectedTimeChange = (e) => {
+        const newTime = e.target.value;
+        setEditSelectedTime(newTime);
+        setEditAppointment(prev => ({
+            ...prev,
+            appointmentDate: `${editSelectedDate}T${newTime}`
+        }));
+    };
+
+    const editAppointmentDone = async(e)=>{
         const id = editAppointmentId;
         await axios.put(`${BASE_URL}/api/v1/appointments/${id}`, editAppointment);
-        setEditAppointment({
-            "appointmentDate": "",
-            "doctor": { id: "", name: "" },
-            "animal": { id: "", name: "" }
-        });
         setEditAppointmentId(null);
         setUpdate(true);
     };
@@ -148,12 +197,6 @@ function Appointments() {
         <div>
             <div>
                 <h3>Yeni Randevu Ekle</h3>
-                <input type="datetime-local" 
-                    placeholder="randevu tarihi"
-                    name="appointmentDate"
-                    value={newAppointment.appointmentDate}
-                    onChange={newAppointmentInputChange}
-                />
                 <select
                     id='doctorSelect'
                     value={newAppointment.doctor.id || ""}
@@ -174,6 +217,20 @@ function Appointments() {
                         <option key={item.id} value={item.id}>{item.name}</option>
                     ))}
                 </select>
+                <select
+                    value={selectedDate || ""}
+                    onChange={newSelectedDoctorAvailableDateChange}
+                    name='appointmentDate'>
+                    <option value={""} disabled hidden>Gün Seçiniz</option>
+                    {selectedDoctorWorkDay?.map((item)=>(
+                        <option key={item.id} value={item.workDay}>{item.workDay}</option>
+                    ))}
+                </select>
+                <input type="time" 
+                placeholder="saat seçiniz" 
+                value={selectedTime || ""}
+                onChange={newSelectedTimeChange}/>
+
                 <button onClick={addNewAppointment}>Ekle</button>
             </div>
             <div>
@@ -182,12 +239,6 @@ function Appointments() {
                     <div key={item.id}>
                         {editAppointmentId === item.id ? (
                             <div>
-                                <input type="datetime-local" 
-                                    placeholder="randevu tarihi"
-                                    name="appointmentDate"
-                                    value={editAppointment.appointmentDate}
-                                    onChange={editAppointmentInputChange}
-                                />
                                 <select
                                     id='doctorSelect'
                                     value={editAppointment.doctor.id || ""}
@@ -208,12 +259,27 @@ function Appointments() {
                                         <option key={animal.id} value={animal.id}>{animal.name}</option>
                                     ))}
                                 </select>
+                                <select
+                                    value={editSelectedDate || ""}
+                                    onChange={editSelectedDoctorAvailableDateChange}
+                                    name='appointmentDate'>
+                                    <option value={""} disabled hidden>Gün Seçiniz</option>
+                                    {selectedDoctorWorkDay?.map((item)=>(
+                                        <option key={item.id} value={item.workDay}>{item.workDay}</option>
+                                    ))}
+                                </select>
+                                <input type="time" 
+                                placeholder="saat seçiniz" 
+                                value={editSelectedTime || ""}
+                                onChange={editSelectedTimeChange}/>
                                 <MdDeleteForever onClick={deleteAppointment} id={item.id} />
                                 <MdFileDownloadDone onClick={editAppointmentDone} />
                             </div>
                         ) : (
                             <div key={item.id}>
-                                <span>{item.appointmentDate}</span>
+                                {/* <span>{item.appointmentDate}</span> */}
+                                <span>{item.appointmentDate.split('T')[0]}</span>
+                                <span>{item.appointmentDate.split('T')[1].split(':').slice(0, 2).join(':')}</span>
                                 <span>{item.doctor.name}</span>
                                 <span>{item.animal.name}</span>
                                 <span>
