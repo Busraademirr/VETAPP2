@@ -30,6 +30,8 @@ function Animals() {
         "customer" :{ id: "", name: ""},
     });
     const [customers, setCustomers]=useState([]);
+    const [searchAnimal, setSearchAnimal] = useState("");
+    const [searchAnimalCustomer, setSearchAnimalCustomer] = useState("");
 
     useEffect(()=>{
         const getData = async()=>{
@@ -138,7 +140,34 @@ function Animals() {
             }));
         }
     };
-    
+    const handleSearchAnimal = async (e) => {
+        const value = e.target.value;
+        setSearchAnimal(value);
+        await axios.get(`${BASE_URL}/api/v1/animals/searchByName?name=${value}`)
+            .then(response => {
+                setAnimals(response.data.content);
+            })
+        await axios.get(`${BASE_URL}/api/v1/animals/${value}`)
+            .then(response => {
+                setAnimals([response.data]);
+            })
+    };
+    const handleSearchAnimalCustomer = async(e) => {
+        const value = e.target.value;
+        setSearchAnimalCustomer(value);
+        if (value === '') {
+            await axios.get(`${BASE_URL}/api/v1/animals`)
+                .then(response => {
+                    setAnimals(response.data.content);
+                })
+        }
+        else{
+        await axios.get(`${BASE_URL}/api/v1/animals/searchByCustomer?customerName=${value}`)
+            .then(response => {
+                setAnimals(response.data.content);
+            })}
+       
+    };
 
 
   return (
@@ -197,6 +226,20 @@ function Animals() {
         </div>
         <div>
         <h3>Hayvan Listesi</h3>
+        <div className='listHeader'>
+        <input type="text" placeholder='İsim' 
+        value={searchAnimal}
+        onChange={handleSearchAnimal}/>
+        <input type="text" placeholder='Tür'/>
+        <input type="text" placeholder='Cins'/>
+        <input type="text" placeholder='Cinsiyet'/>
+        <input type="text" placeholder='Doğum Tarihi'/>
+        <input type="text" placeholder='Renk'/>
+        <input type="text" placeholder='Hayvan Sahibi'
+        value={searchAnimalCustomer}
+        onChange={handleSearchAnimalCustomer}/>
+        <input type="text" placeholder='Düzenle'/>
+        </div>
         { animals?.map((item, index)=>(
             <div key={index}>
                 {editAnimalId== item.id ? (
