@@ -92,14 +92,21 @@ function Doctors() {
         setEditDoctorId(null);
         setUpdate(true);
     };
-    const handleSearchDoctorId = (e) => {
+    const handleSearchDoctorId = async(e) => {
         const value = e.target.value;
         setSearchDoctorId(value);
-        axios.get(`${BASE_URL}/api/v1/doctors/${value}`)
+        if (value === '') {
+            await axios.get(`${BASE_URL}/api/v1/doctors`)
+                .then(response => {
+                    setDoctors(response.data.content);
+                })
+            }
+            else{
+        await axios.get(`${BASE_URL}/api/v1/doctors/${value}`)
             .then(response => {
                 setDoctors([response.data]);
-            })
-    };
+            })}
+    }
 
   return (
     <div>

@@ -23,6 +23,7 @@ function DoctorAvailableDays() {
     const [doctors, setDoctors]=useState([]);
     const [selectedDoctorId, setSelectedDoctorId]=useState(null);
     const [newSelectedDate, setNewSelectedDate] = useState("");
+    const [searchAvailableId, setSearchAvailableId] = useState("");
 
     useEffect(()=>{
         const getData = async()=>{
@@ -87,6 +88,21 @@ function DoctorAvailableDays() {
         setEditAvailableDateId(null);
         setUpdate(true);
     };
+    const handleSearchAvailableId = async(e) => {
+        const value = e.target.value;
+        setSearchAvailableId(value);
+        if (value === "") {
+        await axios.get(`${BASE_URL}/api/v1/available-dates`)
+            .then(response => {
+                setAvailableDates(response.data.content);
+            })
+        }
+        else{
+        await axios.get(`${BASE_URL}/api/v1/available-dates/${value}`)
+            .then(response => {
+                setAvailableDates([response.data]);
+            })}
+    };
 
 
   return (
@@ -105,7 +121,13 @@ function DoctorAvailableDays() {
         <Calendar setNewSelectedDate={setNewSelectedDate}/>
         <button onClick={addNewAvailableDate}>Ekle</button>
         <div>
-        <h3>Doktor Çalışma Günleri:</h3>   
+        <h3>Doktor Çalışma Günleri:</h3>  
+        <div className='listHeader'>
+            <input type="text" 
+            placeholder='Çalışma Günü' 
+            value={searchAvailableId}
+            onChange={handleSearchAvailableId}/>
+            </div> 
         {availableDates?.map((item)=>{
             if(item.doctor.id == selectedDoctorId){
                 return (

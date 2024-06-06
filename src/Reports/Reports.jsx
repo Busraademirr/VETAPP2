@@ -121,13 +121,20 @@ function Reports() {
         setEditReportId(null);
         setUpdate(true);
     };
-    const handleSearchReportId = (e) => {
+    const handleSearchReportId = async(e) => {
         const value = e.target.value;
         setSearchReportId(value);
-        axios.get(`${BASE_URL}/api/v1/reports/${value}`)
+        if (value === '') {
+        await axios.get(`${BASE_URL}/api/v1/reports`)
             .then(response => {
-                setReports([response.data]);
+                setReports(response.data.content);
             })
+        }
+        else{
+        await axios.get(`${BASE_URL}/api/v1/reports/${value}`)
+         .then(response => {
+            setReports([response.data]);
+        })}
     };
 
     return (
