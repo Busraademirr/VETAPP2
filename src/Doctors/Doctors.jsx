@@ -25,6 +25,7 @@ function Doctors() {
         "address": "",
         "city": ""
     });
+    const [searchDoctorId, setSearchDoctorId] = useState("");
     //datayı çekmek  için
     useEffect(()=>{
         const getData = async()=>{
@@ -91,6 +92,14 @@ function Doctors() {
         setEditDoctorId(null);
         setUpdate(true);
     };
+    const handleSearchDoctorId = (e) => {
+        const value = e.target.value;
+        setSearchDoctorId(value);
+        axios.get(`${BASE_URL}/api/v1/doctors/${value}`)
+            .then(response => {
+                setDoctors([response.data]);
+            })
+    };
 
   return (
     <div>
@@ -133,6 +142,17 @@ function Doctors() {
             <button onClick={newDoctorAdd}>Ekle</button>
 
             <h3>Doktor Listesi</h3>
+            <div className='listHeader'>
+            <input type="text" 
+            placeholder='İsimı' 
+            value={searchDoctorId}
+            onChange={handleSearchDoctorId}/>
+            <input type="text" placeholder='Numara'/>
+            <input type="text" placeholder='Mail'/>
+            <input type="text" placeholder='Adres'/>
+            <input type="text" placeholder='Şehir'/>
+            <input type="text" placeholder='Düzenle'/>
+            </div>
         <div>
             {doctors?.map((item, index)=>(
                 <div key={index}>
