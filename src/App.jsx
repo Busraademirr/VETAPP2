@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
+import './HomePage/Home.css'
 import PageHeader from './PageHeader/PageHeader'
 import Home from './HomePage/Home'
 import Customers from './Customers/Customers'

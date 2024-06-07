@@ -2,61 +2,66 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
     padding: 20px;
     min-height: 100vh;
 }
-h1 {
+
+.home-container h1 {
     margin-bottom: 40px;
     color: var(--darkgrey);
-}  
-.icon-grid {
+}
+
+.home-container .icon-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    max-width: 1000px; /* Maksimum genişlik */
+    max-width: 1000px;
     width: 100%;
     justify-content: center;
-}  
-.icon-item {
+}
+
+.home-container .icon-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 35px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-} 
-.icon {
+}
+
+.home-container .icon {
     font-size: 60px;
     margin-bottom: 10px;
     color: var(--green);
     cursor: pointer;
-} 
-h2 {
+}
+
+.home-container h2 {
     margin: 0;
     font-size: 16px;
     color: var(--darkgrey);
-}  
-.icon-grid::after {
+}
+
+.home-container .icon-grid::after {
     content: '';
     display: block;
     width: 100%;
-    grid-column: span 4;
 }
-@media (max-width: 1200px) {
-    .icon-grid {
-      grid-template-columns: repeat(3, 1fr);
+
+@media (max-width: 1400px) {
+    .home-container .icon-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
-  
+
 @media (max-width: 900px) {
-    .icon-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .home-container .icon-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
-  
+
 @media (max-width: 600px) {
-    .icon-grid {
-      grid-template-columns: repeat(1, 1fr);
+    .home-container .icon-grid {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
