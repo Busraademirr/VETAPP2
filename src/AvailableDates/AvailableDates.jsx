@@ -31,18 +31,19 @@ function AvailableDates() {
   const sortedDoctorNames = Object.keys(groupedData).sort();
 
   return (
-    <div>
+    <div className='doctor-calendar-page'>
         <h2>Doktor Çalışma Takvimi</h2>
-        {sortedDoctorNames.map((doctorName) => (
-        <div key={doctorName}>
-          <h3>{doctorName}</h3>
-          <ul>
-            {groupedData[doctorName].map((workDate, index) => (
-              <li key={index}>{workDate}</li>
-            ))}
-          </ul>
+        <div className='doctor-calendar-list'>
+            {sortedDoctorNames.map((doctorName) => (
+            <div key={doctorName} >
+              <h3>{doctorName}</h3>
+                {groupedData[doctorName].map((workDate, index) => (
+                  <p key={index}>{workDate}</p>
+                ))}
+
+            </div>
+          ))}
         </div>
-      ))}
         <button onClick={()=> navigate("/doctor-available-dates")}>Çalışma Günü Ekle/Düzenle...</button>
     </div>
   )

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdFileDownloadDone } from "react-icons/md";
-import Calendar from './Calendar'
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function DoctorAvailableDays() {
@@ -23,7 +22,6 @@ function DoctorAvailableDays() {
     });
     const [doctors, setDoctors]=useState([]);
     const [selectedDoctorId, setSelectedDoctorId]=useState(null);
-    const [newSelectedDate, setNewSelectedDate] = useState("");
     const [searchAvailableId, setSearchAvailableId] = useState("");
 
     useEffect(()=>{
@@ -43,24 +41,22 @@ function DoctorAvailableDays() {
         getData ();  
     }, [doctors]);
 
+    const handleSetNewAvailableDate = (e)=>{
+        const {value}= e.target;
+        setNewAvailableDate(prev=>({
+            ...prev,
+            workDay: value,
+            doctorId : selectedDoctorId
+        }))
+    }       
     const doctorNameSelectChange = (e)=>{
         setSelectedDoctorId(e.target.value);
     };
-
-    useEffect(()=>{
-        const handleSetNewAvailableDate = ()=>{
-            setNewAvailableDate({workDay: newSelectedDate, doctorId : selectedDoctorId});
-        }
-        handleSetNewAvailableDate();
-    },[newSelectedDate]);
-
     const addNewAvailableDate = async()=>{
         await axios.post(`${BASE_URL}/api/v1/available-dates`, newAvailableDate);
-        setNewSelectedDate("");
         setNewAvailableDate({"workDay": "" , "doctorId":""});
         setUpdate(true);
     }
-
     const deleteAvailableDate = async(e)=>{
         const {id}=e.target;
         await axios.delete(`${BASE_URL}/api/v1/available-dates/${id}`);
@@ -107,53 +103,64 @@ function DoctorAvailableDays() {
 
 
   return (
-    <div>
-        <select
-            onChange={doctorNameSelectChange}
-            value={selectedDoctorId}
-            id='doctorSelect'
-            name='doctorName'
-            >
-                <option selected disabled>Bir doktor seçiniz</option>
-                {doctors?.map((item) => (
-                    <option key={item.id} value={item.id}>{item.name}</option>
-                ))}
-            </select>
-        <Calendar setNewSelectedDate={setNewSelectedDate}/>
-        <button onClick={addNewAvailableDate}>Ekle</button>
-        <div>
-        <h3>Doktor Çalışma Günleri:</h3>  
-        <div className='listHeader'>
-            <input type="text" 
-            placeholder='Çalışma Günü' 
-            value={searchAvailableId}
-            onChange={handleSearchAvailableId}/>
+    <div className='container'>
+        <div className="addNewBox">
+            <h3>Çalışma Günü Ekle</h3>
+            <select
+                onChange={doctorNameSelectChange}
+                value={selectedDoctorId}
+                id='doctorSelect'
+                name='doctorName'
+                >
+                    <option selected disabled>Bir doktor seçiniz</option>
+                    {doctors?.map((item) => (
+                        <option key={item.id} value={item.id}>{item.name}</option>
+                    ))}
+                </select>
+            <input type="date" 
+                value={newAvailableDate.workDay} 
+                onChange={handleSetNewAvailableDate} />
+            <button onClick={addNewAvailableDate}>Ekle</button>
+        </div>
+        
+        <div className='listBoxContainer'> 
+            <h3>Doktor Çalışma Günleri:</h3>  
+            <div className='listBox'>
+            <div className='listHeader'>
+                <input type="text" 
+                placeholder='Çalışma Günü' 
+                value={searchAvailableId}
+                onChange={handleSearchAvailableId}/>
+                <div><BsThreeDotsVertical /></div>
             </div> 
-        {availableDates?.map((item)=>{
-            if(item.doctor.id == selectedDoctorId){
-                return (
-                    <div key={item.id}>
-                        {editAvailableDateId == item.id ? (
+            <div className="listItems">
+            {availableDates?.map((item)=>{
+                if(item.doctor.id == selectedDoctorId){
+                    return (
+                        <div key={item.id}>
+                            {editAvailableDateId == item.id ? (
+                                <div className='listItemsEdit'>
+                                <input type="date" 
+                                value={editAvailableDate.workDay}
+                                onChange={editAvailableDateInput}/>
+                                <div>
+                                    <MdDeleteForever onClick={deleteAvailableDate} id={item.id}/>
+                                    <MdFileDownloadDone onClick={editAvailableDateDone} id={item.id} />
+                                </div>
+                                    
+                                </div>
+                            ): (
+                            <div className='listRow'>
+                            <span key={item.id}>{item.workDay}</span>
                             <div>
-                            <input type="date" 
-                            value={editAvailableDate.workDay}
-                            onChange={editAvailableDateInput}/>
-                            <MdDeleteForever onClick={deleteAvailableDate} id={item.id}/>
-                            <MdFileDownloadDone onClick={editAvailableDateDone} id={item.id} />
+                                <MdDeleteForever onClick={deleteAvailableDate} id={item.id} />
+                                <BiSolidEditAlt onClick={handleEditAvailableDate} id={item.id} />
+                                </div>
                             </div>
-                        ): (
-                        <div>
-                        <span key={item.id}>{item.workDay}</span>
-                        <span><MdDeleteForever onClick={deleteAvailableDate} id={item.id} /></span>
-                        <span><BiSolidEditAlt onClick={handleEditAvailableDate} id={item.id} /></span>
+                            )}
+                        </div>) } })}
                         </div>
-                        )}
-                    </div>
-                    
-                ) 
-            }
-            
-        })}
+                        </div>
         </div>
         
 

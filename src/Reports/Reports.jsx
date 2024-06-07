@@ -63,7 +63,6 @@ function Reports() {
             }
         });
     }
-
     const addNewReport = async () => {
         await axios.post(`${BASE_URL}/api/v1/reports`, newReport);
         setUpdate(true);
@@ -139,8 +138,9 @@ function Reports() {
     };
 
     return (
-        <div>
-            <div>
+        <div className='container'>
+            {/* yeni rapor ekleme alanı */}
+            <div className='addNewBox'>
                 <h3>Yeni Rapor Ekle</h3>
                 <select
                     value={newReport.appointmentId}
@@ -158,6 +158,12 @@ function Reports() {
                     onChange={newReportInputChange}
                 />
                 <input type="text" 
+                    placeholder="Hastalık"
+                    name="diagnosis"
+                    value={newReport.diagnosis}
+                    onChange={newReportInputChange}
+                />
+                <input type="text" 
                     placeholder="Ücret"
                     name="price"
                     value={newReport.price}
@@ -165,57 +171,79 @@ function Reports() {
                 />
                 <button onClick={addNewReport}>Rapor Ekle</button>
             </div>
-            <div>
-            <h3>Raporlar</h3>
-            <div className='listHeader'>
-            <input type="text" 
-            placeholder='Randevu' 
-            value={searchReportId}
-            onChange={handleSearchReportId}/>
-            <input type="text" placeholder='Başlık'/>
-            <input type="text" placeholder='Ücret'/>
-            <input type="text" placeholder='Düzenle'/>
-            </div>
-            {reports?.map(item => (
-                    <div key={item.id}>
-                    {editReportId === item.id ? (
-                        <div>
-                        <select
-                        value={editReport.appointmentId}
-                        onChange={editAppointmentSelectChange}
-                        name='appointment'>
-                        <option value={""} selected disabled hidden>Randevu Seçiniz</option>
-                        {appointments?.map((item) => (
-                            <option key={item.id} value={item.id}>Tarih: {item.appointmentDate.split('T')[0]} Doktor Adı: {item.doctor.name}</option>
-                        ))}
-                        </select>
-                        <input type="text" 
-                            placeholder="Başlık"
-                            name="title"
-                            value={editReport.title}
-                            onChange={editReportInputChange}
-                        />
-                        <input type="text" 
-                            placeholder="Ücret"
-                            name="price"
-                            value={editReport.price}
-                            onChange={editReportInputChange}
-                        />
-                        <MdDeleteForever onClick={deleteReport} id={item.id} />
-                        <MdFileDownloadDone onClick={editReportDone} id={item.id}/>
+            {/* yeni rapor ekleme alanı bitiş */}
+            {/* rapor listeleme ve güncelleme alanı */}
+            <div className='listBoxContainer'>
+                <h3>Raporlar</h3>
+                <div className='listBox'>
+                <div className='listHeader'>
+                
+                <input type="text" placeholder='Başlık'/>
+                <input type="text" placeholder='Hastalık'/>
+                <input type="text" placeholder='Ücret'/>
+                <input type="text" 
+                placeholder='Randevu Detayı' value={searchReportId}
+                onChange={handleSearchReportId}/>
+                <div><BsThreeDotsVertical /></div>
+                </div>
+                <div className='listItems'>
+                {reports?.map(item => (
+                        <div key={item.id}>
+                        {editReportId === item.id ? (
+                            <div className='listItemsEdit'>
+                            <select
+                            value={editReport.appointmentId}
+                            onChange={editAppointmentSelectChange}
+                            name='appointment'>
+                            <option value={""} selected disabled hidden>Randevu Seçiniz</option>
+                            {appointments?.map((item) => (
+                                <option key={item.id} value={item.id}>Tarih: {item.appointmentDate.split('T')[0]} Doktor Adı: {item.doctor.name}</option>
+                            ))}
+                            </select>
+                            <input type="text" 
+                                placeholder="Başlık"
+                                name="title"
+                                value={editReport.title}
+                                onChange={editReportInputChange}
+                            />
+                            <input type="text" 
+                                placeholder="Hastalık"
+                                name="diagnosis"
+                                value={editReport.diagnosis}
+                                onChange={editReportInputChange}
+                            />
+                            <input type="text" 
+                                placeholder="Hastalık"
+                                name="diagnosis"
+                                value={editReport.diagnosis}
+                                onChange={editReportInputChange}
+                            />
+                            <input type="text" 
+                                placeholder="Ücret"
+                                name="price"
+                                value={editReport.price}
+                                onChange={editReportInputChange}
+                            />
+                            <MdDeleteForever onClick={deleteReport} id={item.id} />
+                            <MdFileDownloadDone onClick={editReportDone} id={item.id}/>
+                            </div>
+                        ) :(
+                            <div className='listRow'>
+                                <span>{item.title}</span>
+                                <span>{item.diagnosis}</span>
+                                <span>{item.price}₺</span>
+                                <span>{item.appointment.date.split('T')[0]} Doktor: {item.appointment.doctorName}</span>
+                                <div>
+                                    <MdDeleteForever onClick={deleteReport} id={item.id} />
+                                    <BiSolidEditAlt onClick={handleEditReport} id={item.id}/>
+                                </div>
+                            </div>
+                        )}
                         </div>
-                    ) :(
-                        <>
-                        <span>{item.title}</span>
-                        <span>{item.diagnosis}</span>
-                        <span>{item.price}₺</span>
-                        <span>Tarih: {item.appointment.date.split('T')[0]} Doktor: {item.appointment.doctorName}</span>
-                        <MdDeleteForever onClick={deleteReport} id={item.id} />
-                        <BiSolidEditAlt onClick={handleEditReport} id={item.id}/>
-                        </>
-                    )}
+                    ))}
                     </div>
-                ))}
+                    </div>
+                    {/* rapor listeleme ve güncelleme alanı bitiş */}
             </div>
         </div>
     )

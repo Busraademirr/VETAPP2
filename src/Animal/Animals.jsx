@@ -196,7 +196,7 @@ function Animals() {
             value={newAnimal.gender}
             onChange={newAnimalInputChange}
             />
-            <input type="date"  placeholder="YYYY-AA-GG"
+            <input type="date"
             name="dateOfBirth"
             value={newAnimal.dateOfBirth}
             onChange={newAnimalInputChange}
@@ -246,29 +246,23 @@ function Animals() {
                 {editAnimalId== item.id ?( 
                 // hayvan düzenleme başlangıç
                         <div className='listItemsEdit'>
-                            <input type="text" 
-                                placeholder="İsim"
+                            <input type="text" placeholder="İsim"
                                 name="name"
                                 value={editAnimal.name}
                                 onChange={editAnimalInputChange}/>
-                            <input type="text" 
-                                placeholder="Tür"
+                            <input type="text" placeholder="Tür"
                                 name="species"
                                 value={editAnimal.species}
                                 onChange={editAnimalInputChange} />
-                            <input type="text" 
-                                placeholder="Cins"
+                            <input type="text" placeholder="Cins"
                                 name="breed"
                                 value={editAnimal.breed}
                                 onChange={editAnimalInputChange}/>
-                            <input type="text" 
-                                placeholder="Cinsiyet"
+                            <input type="text" placeholder="Cinsiyet"
                                 name="gender"
                                 value={editAnimal.gender}
                                 onChange={editAnimalInputChange}/>
-                            <input type="text" 
-                                placeholder="YYYY-AA-GG"
-                                name="dateOfBirth"
+                            <input type="date" name="dateOfBirth"
                                 value={editAnimal.dateOfBirth}
                                 onChange={editAnimalInputChange}/>
                             <input type="text" 
