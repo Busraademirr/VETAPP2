@@ -3,9 +3,11 @@
   padding:0;
   box-sizing: border-box;
 
-    --green: #7ac43a;
-    --darkgrey: #606060;
-    --lightgrey: #bfbfbf; 
+    --green:#a1dd70;
+    --darkgrey: #515151;
+    --lightgrey:#9ba6a5; 
+    --lightgreen: #faf6e9;
+    --midgreen: #c4e3cb; 
     --white: #ffff;
     --black: #00000000;
 }
