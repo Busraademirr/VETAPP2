@@ -4,10 +4,10 @@
 Veterinary Management System is a project created to organize and manage the daily affairs of veterinary clinics. With this project, the veterinary employee is enabled to manage veterinarians, customers, animals and their vaccinations, and appointments.
 
 ### Technologies
-*React
-*JavaScript
-*HTML
-*CSS
+-React
+-JavaScript
+-HTML
+-CSS
 
 ### Project Design
 This project was prepared with react.
