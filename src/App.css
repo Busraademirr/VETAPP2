@@ -7,59 +7,6 @@ body {
     margin:0;
     box-sizing: border-box;
 }
-
-.flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.navbar nav {
-    background-color: var(--green);
-    position: fixed;
-    top: 0;
-    height: 80px;
-    width: 100%;
-    max-width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-.navbar .logo {
-    width: 60px;
-    height: auto;
-}
-
-.navbar .logo img {
-    max-width: 100%;
-    height: auto;
-}
-
-.navbar .menu {
-    display: flex;
-    align-items: center;
-}
-
-.navbar nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.navbar nav li {
-    padding: 0 20px;
-}
-
-.navbar nav li a {
-    text-decoration: none;
-    color: var(--lightgreen);
-    font-weight: bold;
-}
 .container {
     display: flex;
     width: 100vw;
@@ -250,8 +197,6 @@ body {
     align-items: center;
     width: 5%;
 }
-
-/* Option Stilleri */
 .addNewBox select option {
     background-color: white;
     color: var(--darkgrey);
@@ -276,42 +221,4 @@ body {
     .addNewBox, .listBoxContainer {
         width: 100%;
     }
-}
-.doctor-calendar-page{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.doctor-calendar-page h2{
-    border-bottom: 2px solid var(--darkgrey);
-    color: var(--darkgrey);
-}
-.doctor-calendar-list {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    color: var(--darkgrey)
-}
-.doctor-calendar-list div{
-    width: 15%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.doctor-calendar-list li {
-    list-style: none;
-}
-.doctor-calendar-page button{
-    width: 300px;
-    height: 50px;
-    color: var(--lightgreen);
-    background-color: var(--green);
-    border: none;
-    border-radius: 5px;
-
-}
-.doctor-calendar-page button:active {
-    transform: scale(0.95);
 }

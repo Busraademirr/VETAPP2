@@ -1,0 +1,38 @@
+.doctor-calendar-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.doctor-calendar-page h2{
+    border-bottom: 2px solid var(--darkgrey);
+    color: var(--darkgrey);
+}
+.doctor-calendar-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: var(--darkgrey)
+}
+.doctor-calendar-list div{
+    width: 15%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.doctor-calendar-list li {
+    list-style: none;
+}
+.doctor-calendar-page button{
+    width: 300px;
+    height: 50px;
+    color: var(--lightgreen);
+    background-color: var(--green);
+    border: none;
+    border-radius: 5px;
+
+}
+.doctor-calendar-page button:active {
+    transform: scale(0.95);
+}

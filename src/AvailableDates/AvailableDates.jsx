@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
+import './AvailableDates.css'
 
 function AvailableDates() {
     const BASE_URL = "https://yammering-rasla-busrademir-a841a0e6.koyeb.app"
