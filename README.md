@@ -24,3 +24,5 @@ Veterinary Management System is a project created to organize and manage the dai
 - Searches can be made using the list title fields on the pages.
 - The page has a responsive design.
 - Some page navigations are provided by the buttons on the page.
+---
+![Home Page](/prtsc.png)
