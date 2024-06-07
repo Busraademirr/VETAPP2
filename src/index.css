@@ -4,10 +4,12 @@
   box-sizing: border-box;
 
     --green:#a1dd70;
-    --darkgrey: #515151;
-    --lightgrey:#9ba6a5; 
+    --darkgrey: #6b6b6b;
+    --lightgrey:#8fa1f3; 
     --lightgreen: #faf6e9;
     --midgreen: #c4e3cb; 
     --white: #ffff;
     --black: #00000000;
+    --background: #fbf7f7;
+    
 }

@@ -6,7 +6,7 @@ import { MdFileDownloadDone } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function Reports() {
-    const BASE_URL = "http://localhost:8080";
+    const BASE_URL = "https://yammering-rasla-busrademir-a841a0e6.koyeb.app";
 
     const [update, setUpdate] = useState(false);
     const [reports, setReports] = useState([]);

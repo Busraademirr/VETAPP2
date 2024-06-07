@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 
 function AvailableDates() {
-    const BASE_URL = "http://localhost:8080"
+    const BASE_URL = "https://yammering-rasla-busrademir-a841a0e6.koyeb.app"
     const [availableDates, setAvailableDates]=useState([]);
 
     useEffect(()=>{

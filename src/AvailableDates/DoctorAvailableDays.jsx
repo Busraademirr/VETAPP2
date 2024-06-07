@@ -7,7 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 function DoctorAvailableDays() {
 
-    const BASE_URL = "http://localhost:8080"
+    const BASE_URL = "https://yammering-rasla-busrademir-a841a0e6.koyeb.app"
 
     const [update, setUpdate]=useState(false);
     const [availableDates, setAvailableDates]= useState([]);
