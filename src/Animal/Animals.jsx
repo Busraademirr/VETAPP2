@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdFileDownloadDone } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 function Animals() {
@@ -171,46 +172,40 @@ function Animals() {
 
 
   return (
-    <div>
-        <div>
+    <div className='container'>
+        {/* yeni hayvan ekleme */}
+        <div className='addNewBox'> 
         <h3>Hayvan Ekle</h3>
-            <input type="text" 
-            placeholder="İsim"
+            <input type="text"  placeholder="İsim"
             name="name"
             value={newAnimal.name}
             onChange={newAnimalInputChange}
             />
-            <input type="text" 
-            placeholder="Tür"
+            <input type="text"  placeholder="Tür"
             name="species"
             value={newAnimal.species}
             onChange={newAnimalInputChange}
             />
-            <input type="text" 
-            placeholder="Cins"
+            <input type="text"  placeholder="Cins"
             name="breed"
             value={newAnimal.breed}
             onChange={newAnimalInputChange}
             />
-            <input type="text" 
-            placeholder="Cinsiyet"
+            <input type="text"  placeholder="Cinsiyet"
             name="gender"
             value={newAnimal.gender}
             onChange={newAnimalInputChange}
             />
-            <input type="date" 
-            placeholder="YYYY-AA-GG"
+            <input type="date"  placeholder="YYYY-AA-GG"
             name="dateOfBirth"
             value={newAnimal.dateOfBirth}
             onChange={newAnimalInputChange}
             />
-            <input type="text" 
-            placeholder="Renk"
+            <input type="text"  placeholder="Renk"
             name="colour"
             value={newAnimal.colour}
             onChange={newAnimalInputChange}
             />
-
             <select
             onChange={customerNameSelectChange}
             value={newAnimal.customer.id || ""}
@@ -224,91 +219,98 @@ function Animals() {
             </select>
             <button onClick={newAnimalAdd}>Ekle</button>
         </div>
-        <div>
+        {/* yeni hayvan ekleme bitiş */}
+        <div className='listBoxContainer'>
         <h3>Hayvan Listesi</h3>
+        <div className='listBox'>
+        {/* hayvan liste başlık alanı */}
         <div className='listHeader'>
-        <input type="text" placeholder='İsim' 
-        value={searchAnimal}
-        onChange={handleSearchAnimal}/>
-        <input type="text" placeholder='Tür'/>
-        <input type="text" placeholder='Cins'/>
-        <input type="text" placeholder='Cinsiyet'/>
-        <input type="text" placeholder='Doğum Tarihi'/>
-        <input type="text" placeholder='Renk'/>
-        <input type="text" placeholder='Hayvan Sahibi'
-        value={searchAnimalCustomer}
-        onChange={handleSearchAnimalCustomer}/>
-        <input type="text" placeholder='Düzenle'/>
+            <input type="text" placeholder='İsim' 
+            value={searchAnimal}
+            onChange={handleSearchAnimal}/>
+            <input type="text" placeholder='Tür'/>
+            <input type="text" placeholder='Cins'/>
+            <input type="text" placeholder='Cinsiyet'/>
+            <input type="text" placeholder='Doğum Tarihi'/>
+            <input type="text" placeholder='Renk'/>
+            <input type="text" placeholder='Hayvan Sahibi'
+            value={searchAnimalCustomer}
+            onChange={handleSearchAnimalCustomer}/>
+            <div><BsThreeDotsVertical /></div>
         </div>
+        {/* hayvan liste başlık alanı bitiş */}
+        {/* hayvan düzenleme ve listeleme */}
+        <div className='listItems'>
         { animals?.map((item, index)=>(
             <div key={index}>
-                {editAnimalId== item.id ? (
-                <div>
-            <input type="text" 
-            placeholder="İsim"
-            name="name"
-            value={editAnimal.name}
-            onChange={editAnimalInputChange}
-            />
-            <input type="text" 
-            placeholder="Tür"
-            name="species"
-            value={editAnimal.species}
-            onChange={editAnimalInputChange}
-            />
-            <input type="text" 
-            placeholder="Cins"
-            name="breed"
-            value={editAnimal.breed}
-            onChange={editAnimalInputChange}
-            />
-            <input type="text" 
-            placeholder="Cinsiyet"
-            name="gender"
-            value={editAnimal.gender}
-            onChange={editAnimalInputChange}
-            />
-            <input type="text" 
-            placeholder="YYYY-AA-GG"
-            name="dateOfBirth"
-            value={editAnimal.dateOfBirth}
-            onChange={editAnimalInputChange}
-            />
-            <input type="text" 
-            placeholder="Renk"
-            name="colour"
-            value={editAnimal.colour}
-            onChange={editAnimalInputChange}
-            />
-            <select
-            onChange={editCustomerNameSelectChange}
-            value={editAnimal.customer.id || ""}
-            id='customerSelect'
-            name='customer'
-            >
-            <option value="" disabled hidden>Hayvan Sahibi Seçiniz</option>
-                {customers.map((item) => (
-                    <option key={item.id} value={item.id}>{item.name}</option>
-                ))}
-            </select><span>
-            <MdDeleteForever onClick={deleteAnimal} id={item.id} />
-            <MdFileDownloadDone onClick={editAnimalDone} id={item.id}/></span>
-                </div>
-                ): (
-                    <>
-                <span>İsim: {item.name}</span>
-                <span>Tür: {item.species}</span>
-                <span>Cins: {item.breed}</span>
-                <span>Cinsiyet: {item.gender}</span>
-                <span>Doğum Tarihi: {item.dateOfBirth}</span>
-                <span>Renk: {item.colour}</span>
-                <span>Hayvan Sahibi: {item.customer.name}</span><span>
-                <MdDeleteForever onClick={deleteAnimal} id={item.id} />
-                <BiSolidEditAlt onClick={handleEditAnimal} id={item.id} /></span>
-                </>
-            )}
-            </div>
-        ))}
+                {editAnimalId== item.id ?( 
+                // hayvan düzenleme başlangıç
+                        <div className='listItemsEdit'>
+                            <input type="text" 
+                                placeholder="İsim"
+                                name="name"
+                                value={editAnimal.name}
+                                onChange={editAnimalInputChange}/>
+                            <input type="text" 
+                                placeholder="Tür"
+                                name="species"
+                                value={editAnimal.species}
+                                onChange={editAnimalInputChange} />
+                            <input type="text" 
+                                placeholder="Cins"
+                                name="breed"
+                                value={editAnimal.breed}
+                                onChange={editAnimalInputChange}/>
+                            <input type="text" 
+                                placeholder="Cinsiyet"
+                                name="gender"
+                                value={editAnimal.gender}
+                                onChange={editAnimalInputChange}/>
+                            <input type="text" 
+                                placeholder="YYYY-AA-GG"
+                                name="dateOfBirth"
+                                value={editAnimal.dateOfBirth}
+                                onChange={editAnimalInputChange}/>
+                            <input type="text" 
+                                placeholder="Renk"
+                                name="colour"
+                                value={editAnimal.colour}
+                                onChange={editAnimalInputChange}/>
+                            <select
+                                onChange={editCustomerNameSelectChange}
+                                value={editAnimal.customer.id || ""}
+                                id='customerSelect'
+                                name='customer'>
+                                <option value="" disabled hidden>Hayvan Sahibi Seçiniz</option>
+                                    {customers.map((item) => (
+                                        <option key={item.id} value={item.id}>{item.name}</option>
+                                    ))}
+                            </select>
+                            <div>
+                                <MdDeleteForever onClick={deleteAnimal} id={item.id} />
+                                <MdFileDownloadDone onClick={editAnimalDone} id={item.id}/>
+                            </div>
+                        </div>
+                        // hayvan düzenleme bitiş
+                    ): (
+                        // hayvan listeleme başlangıç
+                        <div className='listRow'>
+                            <span>{item.name}</span>
+                            <span>{item.species}</span>
+                            <span>{item.breed}</span>
+                            <span>{item.gender}</span>
+                            <span>{item.dateOfBirth}</span>
+                            <span>{item.colour}</span>
+                            <span>{item.customer.name}</span>
+                            <div>
+                                <MdDeleteForever onClick={deleteAnimal} id={item.id} />
+                                <BiSolidEditAlt onClick={handleEditAnimal} id={item.id} />
+                            </div>
+                            {/* hayvan düzenleme bitiş */}
+                    </div> )}
+                </div>))}
+        </div>
+        </div>
         </div>
         </div>
   )

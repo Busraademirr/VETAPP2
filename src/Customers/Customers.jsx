@@ -161,8 +161,7 @@ function Customers() {
                             <input type="text" placeholder='Mail' />
                             <input type="text" placeholder='Adres' />
                             <input type="text" placeholder='Şehir' />
-                            {/* <input type="text" placeholder='Düzenle'/> */}
-                            <span><BsThreeDotsVertical /></span>
+                            <div><BsThreeDotsVertical /></div>
                         </div>
                         {/* müşteri arama ve başlık kısmı biriş */}
                         {/* listeleme ve düzenleme kısmı */}

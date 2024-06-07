@@ -4,6 +4,7 @@ import axios from 'axios';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdFileDownloadDone } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 function Vaccinations() {
     const BASE_URL = "http://localhost:8080"
@@ -188,8 +189,9 @@ function Vaccinations() {
     };
 
     return (
-        <div>
-            <div>
+        <div className='container'>
+            {/* yeni aşı ekleme */}
+            <div className='addNewBox'>
                 <h3>Aşı Ekle</h3>
                 <input type="text"
                     placeholder="Aşı Adı"
@@ -227,29 +229,32 @@ function Vaccinations() {
                 </select>
                 <button onClick={addNewVaccination}>Ekle</button>
             </div>
+            {/* yeni aşı son */}
 
-            <div>
+            <div className='listBoxContainer'>
                 <h3>Aşı Takip</h3>
+                <div className='listBox'>
                 <div className='listHeader'>
                     <input type="text" placeholder='Aşı Adı'
                         value={searchVaccinationId}
                         onChange={handleSearchVaccinationId} />
                     <input type="text" placeholder='Aşı Kodu' />
-                    <input type="text" placeholder='Başlangıç Tarihi YYYY-AA-GG'
+                    <input type="text" placeholder='Başlangıç Tarihi'
                         value={searchVaccinationStartDate}
                         onChange={handleSearchVaccinationStartDate} />
-                    <input type="text" placeholder='Bitiş Tarihi YYYY-AA-GG'
+                    <input type="text" placeholder='Bitiş Tarihi'
                         value={searchVaccinationEndDate}
                         onChange={handleSearchVaccinationEndDate} />
                     <input type="text" placeholder='Hayvan Adı'
                         value={searchVaccinationAnimal}
                         onChange={handleSearchVaccinationAnimal} />
-                    <input type="text" placeholder='Düzenle' />
+                    <div><BsThreeDotsVertical /></div>
                 </div>
+                <div className='listItems'>
                 {vaccinations?.map((item, index) => (
                     <div key={index}>
                         {editVaccinationId === item.id ? (
-                            <div>
+                            <div className='listItemsEdit'>
                                 <input type="text"
                                     placeholder="Aşı Adı"
                                     name="name"
@@ -284,22 +289,26 @@ function Vaccinations() {
                                         <option key={item.id} value={item.id}>{item.name}</option>
                                     ))}
                                 </select>
-                                <MdDeleteForever onClick={deleteVaccination} id={item.id} />
-                                <MdFileDownloadDone onClick={editVaccinationDone} id={item.id} />
+                                <div>
+                                    <MdDeleteForever onClick={deleteVaccination} id={item.id} />
+                                    <MdFileDownloadDone onClick={editVaccinationDone} id={item.id} />
+                                </div>
                             </div>
                         ) : (
-                            <>
-                                <span>Aşı adı: {item.name}</span>
-                                <span>Aşı kodu: {item.code}</span>
-                                <span>Aşı koruma başlangıcı: {item.protectionStartDate}</span>
-                                <span>Aşı bitiş: {item.protectionFinishDate}</span>
-                                <span>Hayvan Adı: {item.animal.name}</span><span>
+                            <div className='listRow'>
+                                <span>{item.name}</span>
+                                <span>{item.code}</span>
+                                <span>{item.protectionStartDate}</span>
+                                <span>{item.protectionFinishDate}</span>
+                                <span>{item.animal.name}</span>
+                                <div>
                                     <MdDeleteForever onClick={deleteVaccination} id={item.id} />
-                                    <BiSolidEditAlt onClick={handleEditVaccination} id={item.id} /></span>
-                            </>
-                        )}
-                    </div>
-                ))}
+                                    <BiSolidEditAlt onClick={handleEditVaccination} id={item.id} />
+                                </div>
+                            </div> )}
+                    </div>))}
+                </div>
+                </div>
             </div>
         </div>
     )

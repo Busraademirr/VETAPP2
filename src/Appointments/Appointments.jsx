@@ -3,6 +3,7 @@ import axios from 'axios'
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdFileDownloadDone } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 function Appointments() {
 
@@ -126,6 +127,8 @@ function Appointments() {
         await axios.delete(`${BASE_URL}/api/v1/appointments/${id}`);
         setUpdate(true);
     };
+    // randevu edit fonksiyonları
+    //edite tıklanıldığında bir önceki data ile gösterilen datanın eşitlenmesi
     const handleEditAppointment = (e) => {
         const id = +e.currentTarget.id;
         setEditAppointmentId(id);
@@ -142,7 +145,7 @@ function Appointments() {
             }
         })
     };
-
+    //edit alanında seçilen doktorun yeni değişkene kaydedilmesi
     const editAppointmentDoctorSelectChange = (e) => {
         const { value } = e.target;
         const selectedDoctor = doctors.find(doc => doc.id === +value);
@@ -154,8 +157,8 @@ function Appointments() {
         // Seçilen doktora göre uygun tarihleri bul
         const selectedDoctorAvailableDates = availableDates.filter(date => date.doctor.id === selectedDoctor.id);
         setSelectedDoctorWorkDay(selectedDoctorAvailableDates);
-};
-
+    };
+    //edit alanında seçilen hayvanın yeni değişkene kaydedilmesi
     const editAppointmentAnimalSelectChange = (e) => {
         const { value } = e.target;
         const selectedAnimal = animals.find(animal => animal.id === +value);
@@ -164,6 +167,7 @@ function Appointments() {
             animal: selectedAnimal
         }));
     }
+    //edit alanında müsait günün yeni değişkene kaydedilemsi
     const editSelectedDoctorAvailableDateChange = (e)=>{
         setEditSelectedDate(e.target.value);
         setEditSelectedAppointmentDate(`${selectedDate}T${selectedTime}`);
@@ -173,6 +177,7 @@ function Appointments() {
         }))
 
     }
+    //edit alanında seçilen saatin yeni değişkene kaydedilemsi
     const editSelectedTimeChange = (e) => {
         const newTime = e.target.value;
         setEditSelectedTime(newTime);
@@ -181,7 +186,7 @@ function Appointments() {
             appointmentDate: `${editSelectedDate}T${newTime}`
         }));
     };
-
+    //edit tamamlandığında api ye kaydedilmesi ve sayfanın güncellenmesi
     const editAppointmentDone = async(e)=>{
         const id = editAppointmentId;
         await axios.put(`${BASE_URL}/api/v1/appointments/${id}`, editAppointment);
@@ -190,8 +195,9 @@ function Appointments() {
     };
 
     return (
-        <div>
-            <div>
+        <div className='container'>
+            {/* yeni randevu başlangıç */}
+            <div className='addNewBox'>
                 <h3>Yeni Randevu Ekle</h3>
                 <select
                     id='doctorSelect'
@@ -229,12 +235,21 @@ function Appointments() {
 
                 <button onClick={addNewAppointment}>Ekle</button>
             </div>
-            <div>
+            {/* yeni randevu bitiiş */}
+            <div className='listBoxContainer'>
                 <h3>Randevular</h3>
+                <div className='listBox'>
+                <div className='listHeader'>
+                    <input type="text" placeholder='Randevu Tarihi'/>
+                    <input type="text" placeholder='Randevu Saati'/>
+                    <input type="text" placeholder='DoktorAdı'/>
+                    <input type="text" placeholder='Hayvan Adı'/>
+                    <div><BsThreeDotsVertical /></div>
+                </div>
                 {appointments?.map(item=>(
                     <div key={item.id}>
                         {editAppointmentId === item.id ? (
-                            <div>
+                            <div className='listItemsEdit'>
                                 <select
                                     id='doctorSelect'
                                     value={editAppointment.doctor.id || ""}
@@ -272,20 +287,18 @@ function Appointments() {
                                 <MdFileDownloadDone onClick={editAppointmentDone} />
                             </div>
                         ) : (
-                            <div key={item.id}>
-                                {/* <span>{item.appointmentDate}</span> */}
+                            <div className='listRow'>
                                 <span>{item.appointmentDate.split('T')[0]}</span>
                                 <span>{item.appointmentDate.split('T')[1].split(':').slice(0, 2).join(':')}</span>
                                 <span>{item.doctor.name}</span>
                                 <span>{item.animal.name}</span>
-                                <span>
+                                <div>
                                     <MdDeleteForever onClick={deleteAppointment} id={item.id} />
                                     <BiSolidEditAlt onClick={handleEditAppointment} id={item.id}/>
-                                </span>
-                            </div>
-                        )}
-                    </div>
-                ))}
+                                </div>
+                            </div>)}
+                    </div>))}
+                </div>
             </div>
         </div>
     )

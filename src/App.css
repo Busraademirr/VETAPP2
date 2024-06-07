@@ -51,159 +51,194 @@ nav ul{
     max-width: 100%;
     height: auto;
 }
-.container{
+.container {
     display: flex;
     width: 100vw;
+    padding: 20px; /* Eklendi: Kutular arasında boşluk oluşturmak için */
+    box-sizing: border-box; /* Eklendi */
 }
-.addNewBox{
+
+.addNewBox {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 30%;
-    height: 80vh;
+    width: 25%;
+    padding: 20px; /* Eklendi: İçerik ile kenarlar arasında boşluk oluşturmak için */
+    box-sizing: border-box; /* Eklendi */
     border-right: 2px solid var(--green);
-
+    height: auto; /* Güncellendi: Yüksekliği otomatik hale getirdik */
+    max-height: 600px; /* Eklendi: Maksimum yüksekliği belirledik */
 }
 
-.addNewBox input{
-    height: 45px;
-    width: 70%;
-    margin: 1px;
-    border:none;
+.addNewBox input,
+.addNewBox select {
+    height: 40px; /* Güncellendi: Yükseklik azaltıldı */
+    width: 80%;
+    margin: 5px 0; /* Güncellendi: Dikey boşluk azaltıldı */
+    border: none;
     border-bottom: 1px solid var(--green);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box; /* Eklendi */
 }
+
 .addNewBox input::placeholder {
     color: var(--lightgrey);
     font-size: 1rem;
 }
-.addNewBox input:focus{
+
+.addNewBox input:focus,
+.addNewBox select:focus {
     outline: none;
     border-bottom: 2px solid var(--green);
-    box-shadow: 4px 4px 8px var(--green);
-    
+    box-shadow: 0 4px 8px var(--green); /* Güncellendi: Box shadow değerleri değiştirildi */
 }
-.addNewBox button{
+
+.addNewBox button {
     outline: none;
-    margin-top: 30px;
-    height: 30px;
-    width: 70%;
+    margin-top: 20px; /* Güncellendi: Dikey boşluk azaltıldı */
+    height: 40px; /* Güncellendi: Yükseklik azaltıldı */
+    width: 80%;
     border: none;
     background-color: var(--green);
     border-radius: 5px;
-    color:  var(--lightgreen);
+    color: var(--lightgreen);
     font-weight: bold;
+    cursor: pointer; /* Eklendi: Kullanıcı işaretçisini pointer olarak değiştirmek için */
+    transition: transform 0.1s; /* Eklendi: Düğmeye basıldığında animasyon eklemek için */
 }
+
 .addNewBox button:active {
     transform: scale(0.95);
 }
-.addNewBox h3{
+
+.addNewBox h3 {
     padding-bottom: 5px;
     color: var(--darkgrey);
     border-bottom: 2px solid var(--darkgrey);
+    width: 80%; /* Eklendi: Başlığın genişliğini ayarlamak için */
+    text-align: center; /* Eklendi: Metni ortalamak için */
+    margin-bottom: 20px; /* Eklendi: Başlık ile içerik arasında boşluk oluşturmak için */
 }
-.listBoxContainer{
-    width: 65%;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
+
+.listBoxContainer {
+    width: 70%;
+    padding: 20px; /* Eklendi: İçerik ile kenarlar arasında boşluk oluşturmak için */
+    box-sizing: border-box; /* Eklendi */
 }
-.listBoxContainer h3{
+
+.listBoxContainer h3 {
     color: var(--darkgrey);
-    /* border-bottom: 2px solid var(--darkgrey); */
+    margin-bottom: 20px; /* Eklendi: Başlık ile içerik arasında boşluk oluşturmak için */
 }
+
 .listBox {
     width: 100%;
     display: flex;
     flex-direction: column;
     border: 2px solid var(--green);
     border-radius: 10px;
+    overflow: hidden; /* Eklendi: İçeriğin kutudan taşmasını önlemek için */
 }
-.listBox .listHeader{
+
+.listBox .listHeader,
+.listRow {
     display: flex;
-    background-color: var(--green);
-    height:60px;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-}
-.listHeader input{
-    width: 20%;
-    height: 35px;
-    color:var(--lightgrey);
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 1rem;
-    border: none;
-    margin-right: 5px;
-    background-color: transparent;
-    
-}
-.listHeader input::placeholder{
-    color:var(--lightgreen);
-    font-size: 1rem;
-    align-items: center;
-}
-.listHeader input:focus{
-    outline: none;
-    border-bottom: 2px solid var(--lightgreen);
-    color:var(--lightgreen);
-}
-.listHeader span{
-    width: 4%;
-    display: flex;
-    height:37px;
-    align-items: center;
-    justify-content: center;
-    color: var(--lightgrey);
-    margin-bottom: 5px;
-}
-.listRow{
-    padding: 0 10px;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     height: 60px;
-    border-bottom: 0.5px solid var(--lightgrey);
+    padding: 0 10px; /* Eklendi: İçerik ile kenarlar arasında boşluk oluşturmak için */
+    box-sizing: border-box; /* Eklendi */
 }
-.listRow span{
+
+.listBox .listHeader {
+    background-color: var(--green);
+    color: white; /* Eklendi: Başlık rengini beyaz yapmak için */
+}
+
+.listHeader input {
+    overflow: hidden;
+    width: 20%;
+    height: 35px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    color: white; /* Eklendi: Başlık altındaki input rengini beyaz yapmak için */
+    text-align: center; /* Eklendi: Metni ortalamak için */
+}
+
+.listHeader input::placeholder {
+    color: var(--lightgreen);
+    font-size: 1rem;
+    align-items: center;
+}
+
+.listHeader input:focus {
+    outline: none;
+    border-bottom: 2px solid var(--lightgreen);
+    color: var(--lightgreen);
+}
+
+.listRow span {
     align-items: center;
     width: 20%;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
-    margin-right: 5px;
+    text-overflow: ellipsis;
+    text-align: center; /* Eklendi: Metni ortalamak için */
 }
-.listRow div{
+
+.listRow div {
     display: flex;
     align-items: center;
+    width: 5%;
 }
 
 .listItemsEdit {
-    padding: 0 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 60px;
     border-bottom: 0.5px solid var(--lightgrey);
+    padding: 0 10px; /* Eklendi: İçerik ile kenarlar arasında boşluk oluşturmak için */
+    box-sizing: border-box; /* Eklendi */
 }
-.listItemsEdit input{
+
+.listItemsEdit input,
+.listItemsEdit select {
     align-items: center;
     width: 20%;
-    width: 100%;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
     margin-right: 5px;
     border: none;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1rem;
     padding-bottom: 15px;
     border-bottom: 2px solid var(--green);
 }
-.listItemsEdit div{
+
+.listItemsEdit input:focus,
+.listItemsEdit select:focus {
+    outline: none;
+    border-bottom: 2px solid var(--green);
+    box-shadow: 0 4px 8px var(--green); /* Güncellendi: Box shadow değerleri değiştirildi */
+}
+
+.listItemsEdit div {
     display: flex;
     align-items: center;
+    width: 5%;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .addNewBox, .listBoxContainer {
+        width: 100%;
+    }
 }
