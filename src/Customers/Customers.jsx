@@ -186,7 +186,7 @@ function Customers() {
                                 <input type="text" placeholder='Adres'
                                     name='address'
                                     value={editCustomer.address}
-                                    onChange={editCustomerInputChange} /> /
+                                    onChange={editCustomerInputChange} />
                                 <input input type="text" placeholder='Şehir'
                                     name='city'
                                     value={editCustomer.city}
