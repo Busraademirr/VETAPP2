@@ -20,9 +20,40 @@ Veterinary Management System is a project created to organize and manage the dai
 ---
 ### Features included in the project:
 - There are 8 pages in the project: home, doctor, customer, animal, vaccination, working day, appointment and report.
-- Data retrieval (get), data addition (post), data deletion (data deletion), data update (put) operations were carried out on all pages except Home.
+- Data retrieval (get), data addition (post), data deletion (delete), data update (put) operations were carried out on all pages except Home.
 - Searches can be made using the list title fields on the pages.
 - The page has a responsive design.
 - Some page navigations are provided by the buttons on the page.
 ---
 ![Home Page](/public/prtcs.png)
+
+---
+---
+
+# VETERİNER UYGULAMASI
+## Canlı link: https://main--admirable-crostata-462e5a.netlify.app/
+
+Veteriner Yönetim Sistemi, veteriner kliniklerinin günlük işlerinin organize edilmesi ve yönetilmesi amacıyla oluşturulmuş bir projedir. Bu proje ile veteriner çalışanının veteriner hekimleri, müşterileri, hayvanları ve aşılarını, randevularını yönetmesi sağlanmıştır.
+
+---
+### Teknolojiler
+- React
+- JavaScript
+- HTML
+- CSS
+---
+### Proje Tasarımı
+- Bu proje react ile hazırlandı.
+- Proje tek sayfa olarak tasarlanmış olup React Router Dom yapısı ile sarıldı.
+- Projede CRUID işlemleri gerçekleştirildi.
+- Axios ile API işlemleri tamamlandı.
+- Responsive tasarım uygulandı.
+- Flex yapısıyla daha esnek ve işlevsel bir sayfa tasarımı hayata geçirildi.
+---
+### Projede yer alan özellikler:
+- Projede ev, doktor, müşteri, hayvan, aşı, iş günü, randevu ve rapor olmak üzere 8 sayfa bulunmaktadır.
+- Ana Sayfa dışındaki tüm sayfalarda veri alma (get), veri ekleme (post), veri silme (delete), veri güncelleme (put) işlemleri yapışabilinmektedir.
+- Sayfalardaki liste başlık alanları kullanılarak arama yapılabilir.
+- Sayfa mobil uyumlu tasarlanmıştır.
+- Bazı sayfalarda navigation kullanarak butonlarla farklı sayfalara yönlendirme yapılmaktadır.
+
